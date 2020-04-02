@@ -5,5 +5,7 @@ A simple To Do List Created in Vue
 
 # The toDoList Can do the Following Thigns:
 Be able to add items to the list
+
 Be able to delete items from the list
+
 Be able to mark items as complete

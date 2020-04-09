@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>To Do List</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        body{
+            background-color:#87CEFA;
+        }
+        
+        #container{
+            text-align: center;
+        }
+        
+        li{
+            list-style: none;
+        }
+        
+        .completed {
+            text-decoration: line-through;
+        }
+        
+        button {
+            cursor:pointer; 
+	        padding:2px 2px;
+            background-color:#87fab3;
+        }
+        
+        button:hover{
+            background-color: #5cbf2a;
+        }
+        
+        #deleteButton{
+            color:red;
+        }
+    </style> 
+</head>
+
+<body>
+<div id="app">
+  
+  <div id = "container">
+	<h3>ToDo List</h3>
+	
+ <!-- development version, includes helpful console warnings -->
+  <input type="text" v-model="newItem">
+    
+	<!--Call the  addItem method once clicked -->
+	<button v-on:click="addItem" id = "addButton">Add</button>
+  
+  <!--  An unordered list to display the list -->
+  <ul>
+    
+	<!-- Display the List -->
+	<li v-for="(item, index) in list"  v-bind:class="{'completed':item.completed}">
+      
+	   <!-- Cross out the items in the list -->
+	  <input type="checkbox" v-model="item.isDone" v-on:change="markComplete(item)">
+     
+	<!--Out put the items in the list -->
+	 <span v-bind:class="{ done: item.isDone }">{{ item.item }}</span>
+      
+	   <!-- Create a button to remove the items off the list-->
+	  <button v-on:click="deleteItem(index)" id = "deleteButton">X</button>
+    </li>
+  </ul>
+</div>
+</div> 
+    
+    <script>
+new Vue({
+
+  //mount the Vue application to the HTML 
+  el: '#app',
+  
+ //Create a array to store the list 
+  data: {
+    
+	// newItem is used to store user input
+	newItem: '',
+    
+	//Array to store the items in the list
+	list: [
+      { item: 'read book'},
+      { item: 'study for exam'},
+      { item: 'go to class'},
+    ]
+  },
+  methods: {
+  
+	//method to add items to the list
+    addItem: function(event) {
+      
+	 //Make sure that the user entered a string  
+	  if (this.newItem === '') 
+        
+		//add the new item to the list
+		return
+        this.list.push({item:this.newItem});
+    },
+    
+	//Delete the item from the list
+	deleteItem: function(index) {
+      this.list.splice(index, 1)
+    },
+    
+	//Mark the Item as completed
+	markComplete(e){
+        e.completed = !e.completed
+    }
+  }
+})
+    </script>
+</body>
+</html>

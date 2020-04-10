@@ -6,32 +6,39 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <style>
+        /* Stylize the body with a background color */
         body{
             background-color:#87CEFA;
         }
         
+        /* Center the container */
         #container{
             text-align: center;
         }
         
+        /* Center the li items */
         li{
             list-style: none;
         }
         
+        /* Stylized completed - cross a item out */
         .completed {
             text-decoration: line-through;
         }
         
+        /* Stylize the button */
         button {
             cursor:pointer; 
 	        padding:2px 2px;
             background-color:#87fab3;
         }
         
+        /* Stylize the button on hover */
         button:hover{
             background-color: #5cbf2a;
         }
         
+		/* Stylize the delete button  */
         #deleteButton{
             color:red;
         }
@@ -53,14 +60,14 @@
   <!--  An unordered list to display the list -->
   <ul>
     
-	<!-- Display the List -->
-	<li v-for="(item, index) in list"  v-bind:class="{'completed':item.completed}">
+	<!-- Display the List and bind the completed CSS Class -->
+	<li v-for="(items, index) in list" v-bind:class="{completed:items.completed}">
       
-	   <!-- Cross out the items in the list -->
-	  <input type="checkbox" v-model="item.isDone" v-on:change="markComplete(item)">
+	   <!-- Cross out the items in the list and bind to -->
+	  <input type="checkbox" v-model="items.completed" >
      
 	<!--Out put the items in the list -->
-	 <span v-bind:class="{ done: item.isDone }">{{ item.item }}</span>
+	 <span>{{items.item}}</span>
       
 	   <!-- Create a button to remove the items off the list-->
 	  <button v-on:click="deleteItem(index)" id = "deleteButton">X</button>
@@ -85,7 +92,7 @@ new Vue({
 	list: [
       { item: 'read book'},
       { item: 'study for exam'},
-      { item: 'go to class'},
+      { item: 'go to class' },
     ]
   },
   methods: {
@@ -105,12 +112,8 @@ new Vue({
 	deleteItem: function(index) {
       this.list.splice(index, 1)
     },
-    
-	//Mark the Item as completed
-	markComplete(e){
-        e.completed = !e.completed
-    }
-  }
+  },
+   
 })
     </script>
 </body>
